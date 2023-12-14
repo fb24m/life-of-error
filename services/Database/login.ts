@@ -40,8 +40,8 @@ export const login = async (prevState: any, formData: FormData) => {
 		if (rawData.username.match(/[a-z]/g)) return { ok: false, message: 'латиница в имени запрещена' }
 		if (rawData.username.match(/[0-9]/g)) return { ok: false, message: 'ХТО ТЕБЯ ЦЫФРАМИ НАЗВАЛ?' }
 
-		if (rawData.username.match(/[a-z]/g)) return { ok: false, message: 'КТО ТЕБЯ В ДЕНЬ БУКАВ НАЗВАЛ' }
-		if (rawData.username.match(/[а-я]/g)) return { ok: false, message: 'ПОЧЕМУ У ТЕБЯ РУСКИЕ БУКВЫ В ДАТЕ РАЖДЕНИЯ' }
+		if (rawData.birthDate.match(/[a-z]/g)) return { ok: false, message: 'КТО ТЕБЯ В ДЕНЬ БУКАВ НАЗВАЛ' }
+		if (rawData.birthDate.match(/[а-я]/g)) return { ok: false, message: 'ПОЧЕМУ У ТЕБЯ РУСКИЕ БУКВЫ В ДАТЕ РАЖДЕНИЯ' }
 
 		await prisma.user.create({
 			data: {
