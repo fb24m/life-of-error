@@ -28,11 +28,20 @@ export const login = async (prevState: any, formData: FormData) => {
 			return { ok: false, message: 'Переделывай давай пароль не савпал' }
 		}
 
+		if (!rawData.passwordA.includes('.')) return { ok: false, message: 'В ПАРОЛЕ АБЯЗАТЕЛЬНА ТОЧКУ НАДА БЕЗАПАСНАСТЬ' }
+		if (!rawData.passwordA.includes(',')) return { ok: false, message: 'ДЛЯ БЕЗАПАСНАСТИ ГДЕ ЗАПЯТАЯ В ПАРОЛЕ?' }
+		if (!rawData.passwordA.includes('*')) return { ok: false, message: 'В ПАРОЛЕ НАДА ЗНАК * ДЛЯ БЕЗАПАСПАНСИЫВАТОПРОЫВПРЫВП' }
+		if (!rawData.passwordA.includes('?')) return { ok: false, message: 'в пароле нужен кое какой знак но я не скажу какой' }
+
 		if (!rawData.username) return { ok: false, message: 'АЛО Я СПРАСИЛ ВАПРОС КАК ВАС НАЗВАЛИ' }
 		if (!rawData.birthDate) return { ok: false, message: 'ДАТА РАЖДЕНИЯ НУ КАК МОЖНА НЕ ПАНЯТЬ' }
 
 		if (rawData.username !== rawData.username.toLowerCase()) return { ok: false, message: 'бальшые буквы в имене запрещены' }
 		if (rawData.username.match(/[a-z]/g)) return { ok: false, message: 'латиница в имени запрещена' }
+		if (rawData.username.match(/[0-9]/g)) return { ok: false, message: 'ХТО ТЕБЯ ЦЫФРАМИ НАЗВАЛ?' }
+
+		if (rawData.username.match(/[a-z]/g)) return { ok: false, message: 'КТО ТЕБЯ В ДЕНЬ БУКАВ НАЗВАЛ' }
+		if (rawData.username.match(/[а-я]/g)) return { ok: false, message: 'ПОЧЕМУ У ТЕБЯ РУСКИЕ БУКВЫ В ДАТЕ РАЖДЕНИЯ' }
 
 		await prisma.user.create({
 			data: {
